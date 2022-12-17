@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/utils.dart';
+import '../features/common_widgets/bottom bar.dart';
 
 class AuthService {
   //Sign up user
@@ -76,7 +77,7 @@ class AuthService {
             await prefs.setString(
                 "x-auth-token", jsonDecode(response.body)["token"]);
             Navigator.pushNamedAndRemoveUntil(
-                context, HomeScreen.routeName, (route) => false);
+                context, BottomBar.routeName, (route) => false);
           });
       // print(response.body);
     } catch (e) {
@@ -93,22 +94,26 @@ class AuthService {
       if (token == null) {
         prefs.setString('x-auth-token', "");
       }
-    var tokenRes= await http.post(Uri.parse('$uri/tokenIsValid',),
-            headers: <String,String>{
-              'Content-Type':'application/json; charset=UTF-8',
-              'x-auth-token':token!
-            });
-  var response=jsonDecode(tokenRes.body);
+      var tokenRes = await http.post(
+          Uri.parse(
+            '$uri/tokenIsValid',
+          ),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token!
+          });
+      var response = jsonDecode(tokenRes.body);
 
-  if(response){
-    //get user data
-  http.Response userRes=  await http.get(Uri.parse('$uri/'),  headers: <String,String>{
-      'Content-Type':'application/json; charset=UTF-8',
-      'x-auth-token':token
-    });
-    var userProvider= Provider.of<UserProvider>(context,listen: false);
-    userProvider.setUser(userRes.body);
-  }
+      if (response) {
+        //get user data
+        http.Response userRes = await http.get(Uri.parse('$uri/'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'x-auth-token': token
+            });
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUser(userRes.body);
+      }
     } catch (e) {
       showSnackbar(context, e.toString());
       rethrow;

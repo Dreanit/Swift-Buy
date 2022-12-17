@@ -3,6 +3,8 @@ import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'features/common_widgets/bottom bar.dart';
+
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case AuthScreen.routeName:
@@ -13,6 +15,11 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
     case HomeScreen.routeName:
       return MaterialPageRoute(
         builder: (_) => const HomeScreen(),
+        settings: routeSettings,
+      );
+      case BottomBar.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const BottomBar(),
         settings: routeSettings,
       );
     default:

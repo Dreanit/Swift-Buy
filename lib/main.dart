@@ -7,6 +7,8 @@ import 'package:amazon_clone/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'features/common_widgets/bottom bar.dart';
+
 void main() {
   runApp(MultiProvider(
     providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
@@ -45,7 +47,7 @@ class _MyAppState extends State<MyApp> {
         ),
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
-      home:Provider.of<UserProvider>(context).user.token.isNotEmpty?const HomeScreen(): AuthScreen(),
+      home:Provider.of<UserProvider>(context).user.token.isNotEmpty?const BottomBar(): AuthScreen(),
     );
   }
 }

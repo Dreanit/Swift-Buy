@@ -1,8 +1,8 @@
-
-
 import 'package:flutter/material.dart';
-String uri="http://192.168.1.14:3000";
-class AppGlobalVariables{
+
+String uri = "http://192.168.1.3:3000";
+
+class AppGlobalVariables {
   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
@@ -12,7 +12,8 @@ class AppGlobalVariables{
     stops: [0.5, 1.0],
   );
 
-  static const secondaryColor = Color.fromRGBO(241, 149, 20, 0.9294117647058824);
+  static const secondaryColor =
+      Color.fromRGBO(241, 149, 20, 0.9294117647058824);
   static const primaryColor = Color.fromRGBO(246, 117, 9, 1.0);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
