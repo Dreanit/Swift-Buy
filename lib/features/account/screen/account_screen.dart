@@ -3,6 +3,7 @@ import 'package:amazon_clone/features/account/widgets/below_app_bar.dart';
 import 'package:amazon_clone/features/account/widgets/orders.dart';
 import 'package:amazon_clone/features/account/widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // floatingActionButton: SpeedDial,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(50),
         child: AppBar(
