@@ -16,13 +16,13 @@ class _AddressBarState extends State<AddressBar> {
     return Container(
       height: 40,
       decoration: BoxDecoration(
-        gradient: LinearGradient(colors: [
-          Color.fromARGB(225, 114, 226, 221),
-          Color.fromARGB(225, 162, 236, 233),
-        ], stops: [
-          0.5,
-          1.0
-        ]),
+        gradient:LinearGradient(
+          colors: [
+            Color(0xff2c3b3a),
+            Color(0xff2e6968),
+          ],
+          stops: [0.5, 1.0 ],
+        ),
       ),
       padding: EdgeInsets.only(left: 10),
       child: Row(
@@ -30,18 +30,19 @@ class _AddressBarState extends State<AddressBar> {
           Icon(
             Icons.location_on_outlined,
             size: 20,
+            color: Colors.white,
           ),
           Expanded(
             child: Padding(
               padding: EdgeInsets.only(left: 5),
               child: Text(
                 'Delivery to ${user.name} - ${user.address}',
-                style: TextStyle(fontWeight: FontWeight.w500),
+                style: TextStyle(fontWeight: FontWeight.w500,color: Colors.white),
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.only(left: 5,top: 2),child: Icon(Icons.arrow_drop_down_outlined),)
+          Padding(padding: EdgeInsets.only(left: 5,top: 2),child: Icon(Icons.arrow_drop_down_outlined,color: Colors.white,),)
         ],
       ),
     );

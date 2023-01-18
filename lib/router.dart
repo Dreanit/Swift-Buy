@@ -1,3 +1,4 @@
+import 'package:amazon_clone/features/admin/screen/add_product_screen.dart';
 import 'package:amazon_clone/features/authentication/screens/auth_screen.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,9 +18,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         builder: (_) => const HomeScreen(),
         settings: routeSettings,
       );
-      case BottomBar.routeName:
+    case BottomBar.routeName:
       return MaterialPageRoute(
         builder: (_) => const BottomBar(),
+        settings: routeSettings,
+      );
+      case AddProductScreen.routeName:
+      return MaterialPageRoute(
+        builder: (_) => const AddProductScreen(),
         settings: routeSettings,
       );
     default:

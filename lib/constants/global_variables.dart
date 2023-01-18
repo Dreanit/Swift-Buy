@@ -6,18 +6,18 @@ class AppGlobalVariables {
   // COLORS
   static const appBarGradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 29, 201, 192),
-      Color.fromARGB(255, 125, 221, 216),
+      Color(0xff212d2c),
+      Color(0xff316261),
     ],
     stops: [0.5, 1.0],
   );
 
   static const secondaryColor =
-      Color.fromRGBO(241, 149, 20, 0.9294117647058824);
-  static const primaryColor = Color.fromRGBO(246, 117, 9, 1.0);
+      Color.fromRGBO(57, 122, 103, 0.9294117647058824);
+  static const primaryColor = Color.fromRGBO(59, 91, 77, 1.0);
   static const backgroundColor = Colors.white;
   static const Color greyBackgroundCOlor = Color(0xffebecee);
-  static var selectedNavBarColor = Colors.cyan[800]!;
+  static var selectedNavBarColor = Color.fromARGB(255, 30, 72, 70);
   static const unselectedNavBarColor = Colors.black87;
 
   // STATIC IMAGES

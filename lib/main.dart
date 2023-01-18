@@ -43,14 +43,17 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: AppGlobalVariables.backgroundColor,
         colorScheme:
             ColorScheme.light(primary: AppGlobalVariables.secondaryColor),
+        fontFamily: "Poppins",
         appBarTheme: AppBarTheme(
           elevation: 0,
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: Colors.white),
         ),
       ),
       onGenerateRoute: ((settings) => generateRoute(settings)),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ?Provider.of<UserProvider>(context).user.type=="user"?const BottomBar():const AdminScreen()
+          ? Provider.of<UserProvider>(context).user.type == "user"
+              ? const BottomBar()
+              : const AdminScreen()
           : AuthScreen(),
     );
   }

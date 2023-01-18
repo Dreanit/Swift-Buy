@@ -27,11 +27,16 @@ class _OrdersState extends State<Orders> {
             children: [
               Text(
                 "Your Orders",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: "Poppins"),
               ),
               Text(
                 "See all",
-                style: TextStyle(color: AppGlobalVariables.selectedNavBarColor),
+                style: TextStyle(
+                    color: AppGlobalVariables.selectedNavBarColor,
+                    fontFamily: "Poppins"),
               ),
             ],
           ),
@@ -44,7 +49,7 @@ class _OrdersState extends State<Orders> {
             right: 0,
           ),
           child: ListView.builder(
-            scrollDirection: Axis.horizontal,
+              scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return SingleProduct(image: list[index]);
               },

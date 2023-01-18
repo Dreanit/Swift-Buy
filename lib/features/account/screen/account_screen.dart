@@ -30,17 +30,16 @@ class _AccountScreenState extends State<AccountScreen> {
               Container(
                 alignment: Alignment.topLeft,
                 child: Image.asset(
-                  "assets/images/amazon_in.png",
-                  width: 120,
-                  height: 45,
+                  "assets/logo without bg.png",
+                  scale: 3.5,
                 ),
               ),
               Container(
                 child: Row(
                   children: const [
-                    Icon(Icons.notifications_outlined),
+                    Icon(Icons.notifications_outlined,color: Colors.white,),
                     SizedBox(width: 15,),
-                    Icon(Icons.search)
+                    Icon(Icons.search,color: Colors.white,)
                   ],
                 ),
               )

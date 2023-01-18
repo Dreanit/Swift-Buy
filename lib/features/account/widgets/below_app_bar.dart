@@ -19,15 +19,17 @@ class BelowAppBar extends StatelessWidget {
                 text: "Hello, ",
                 style: TextStyle(
                   fontSize: 22,
-                  color: Colors.black,
+                  color: Colors.white,
+                    fontFamily: "Poppins"
                 ),
                 children: [
                   TextSpan(
                     text: user.name,
                     style: TextStyle(
                       fontSize: 22,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w600
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,                  fontFamily: "Poppins"
+
                     ),
                   )
                 ]),

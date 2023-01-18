@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(50),
+        preferredSize: Size.fromHeight(60),
         child: AppBar(
           flexibleSpace: Container(
             decoration:
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           padding: EdgeInsets.only(left: 6),
                           child: Icon(
                             Icons.search,
-                            color: Colors.black,
+                            color: Colors.white,
                             size: 23,
                           ),
                         ),
@@ -67,7 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       hintText: "Search Amazon.in",
                       hintStyle: TextStyle(
                         fontWeight: FontWeight.w500,
-                        fontSize: 17,
+                        fontSize: 17,                  fontFamily: "Poppins"
+
                       ),
                     ),
                   ),
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Colors.transparent,
                 height: 42,
                 margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.mic,color: Colors.black,size: 25,),
+                child: Icon(Icons.mic,color: Colors.white,size: 25,),
               )
             ],
           ),

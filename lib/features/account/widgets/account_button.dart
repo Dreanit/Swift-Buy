@@ -26,7 +26,7 @@ final VoidCallback onTap;
              style: TextStyle(
                color: Colors.black,
                fontWeight: FontWeight.normal,
-
+                 fontFamily: "Poppins"
              ),
            ),
         ),
