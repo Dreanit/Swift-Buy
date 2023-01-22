@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:amazon_clone/constants/error_handling.dart';
@@ -20,7 +22,7 @@ class AdminServices {
     required String category,
     required List<File> images,
   }) async {
-    final user = Provider.of<UserProvider>(context).user;
+    final user = Provider.of<UserProvider>(context, listen: false);
     try {
       final cloudinary = CloudinaryPublic("deuzwzvf9", "wxjb7jo9");
       List<String> imageUrls = [];
@@ -37,20 +39,54 @@ class AdminServices {
           images: imageUrls,
           category: category,
           price: price);
-
       http.Response response = await http.post(
           Uri.parse('$uri/admin/add-product'),
           body: product.toJson(),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': user.token
+            'x-auth-token': user.user.token
           });
       httpErrorHandle(
           response: response,
           context: context,
           onSuccess: () {
             showSnackbar(context, "Product Added Successfully!");
+            Navigator.pop(context);
           });
+    } catch (e) {
+      showSnackbar(context, e.toString());
+    }
+  }
+
+  Future<List<Product>?> getProducts({
+    required BuildContext context,
+    required String name,
+    required String description,
+    required double price,
+    required double quantity,
+    required String category,
+    required List<File> images,
+  }) async {
+    final user = Provider.of<UserProvider>(context, listen: false);
+    try {
+      http.Response response = await http
+          .get(Uri.parse('$uri/admin/get-products'), headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'x-auth-token': user.user.token
+      });
+      List<Product> dataList = [];
+      // httpErrorHandle(
+      //     response: response,
+      //     context: context,
+      //     onSuccess: () {
+      //       showSnackbar(context, "Product Added Successfully!");
+      //       Navigator.pop(context);
+      //     });
+      for (var json in jsonDecode(response.body)["data"]) {
+        Product data = Product.fromJson(json);
+        dataList.add(data);
+      }
+      return dataList;
     } catch (e) {
       showSnackbar(context, e.toString());
     }
