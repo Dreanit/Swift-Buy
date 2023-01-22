@@ -1,10 +1,13 @@
 import 'dart:io';
 
+import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/constants/utils.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import '../../../models/product.dart';
 
 class AdminServices {
@@ -17,6 +20,7 @@ class AdminServices {
     required String category,
     required List<File> images,
   }) async {
+    final user = Provider.of<UserProvider>(context).user;
     try {
       final cloudinary = CloudinaryPublic("deuzwzvf9", "wxjb7jo9");
       List<String> imageUrls = [];
@@ -34,14 +38,21 @@ class AdminServices {
           category: category,
           price: price);
 
-      http.post(Uri.parse('$uri/admin/add-product'),
-         body: product.toJson(),
+      http.Response response = await http.post(
+          Uri.parse('$uri/admin/add-product'),
+          body: product.toJson(),
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
-      });
+            'x-auth-token': user.token
+          });
+      httpErrorHandle(
+          response: response,
+          context: context,
+          onSuccess: () {
+            showSnackbar(context, "Product Added Successfully!");
+          });
     } catch (e) {
       showSnackbar(context, e.toString());
     }
   }
 }
-
