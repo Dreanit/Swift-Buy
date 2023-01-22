@@ -26,6 +26,7 @@ dependencies:
   flutter_speed_dial: ^6.2.0
   dotted_border: ^2.0.0+3
   file_picker:
+  cloudinary_public:
 
 dev_dependencies:
   flutter_test:
