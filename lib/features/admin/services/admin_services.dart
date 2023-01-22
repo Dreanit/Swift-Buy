@@ -58,15 +58,7 @@ class AdminServices {
     }
   }
 
-  Future<List<Product>?> getProducts({
-    required BuildContext context,
-    required String name,
-    required String description,
-    required double price,
-    required double quantity,
-    required String category,
-    required List<File> images,
-  }) async {
+  Future<List<Product>?> getProducts(BuildContext context) async {
     final user = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response response = await http
@@ -75,18 +67,18 @@ class AdminServices {
         'x-auth-token': user.user.token
       });
       List<Product> dataList = [];
-      // httpErrorHandle(
-      //     response: response,
-      //     context: context,
-      //     onSuccess: () {
-      //       showSnackbar(context, "Product Added Successfully!");
-      //       Navigator.pop(context);
-      //     });
-      for (var json in jsonDecode(response.body)["data"]) {
-        Product data = Product.fromJson(json);
-        dataList.add(data);
-      }
-      return dataList;
+      httpErrorHandle(
+          response: response,
+          context: context,
+          onSuccess: () {
+            for (var json in jsonDecode(response.body)["data"]) {
+              print(json);
+              Product data = Product.fromMap(json);
+              dataList.add(data);
+            }
+            showSnackbar(context, "Product Added Successfully!");
+            Navigator.pop(context);
+          });
     } catch (e) {
       showSnackbar(context, e.toString());
     }
