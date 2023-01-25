@@ -18,12 +18,9 @@ class TopCategories extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return CategoryDealsScreen(
-                          category: AppGlobalVariables.categoryImages[index]
-                              ["title"]!);
-                    }));
+                    Navigator.pushNamed(context, CategoryDealsScreen.routeName,
+                        arguments: AppGlobalVariables.categoryImages[index]
+                            ["title"]!);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10),

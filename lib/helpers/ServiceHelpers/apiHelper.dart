@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -16,11 +17,16 @@ class ApiHelper {
       {dynamic querryParam, required BuildContext context}) async {
     final user = Provider.of<UserProvider>(context, listen: false);
     Map<String, String>? _headers;
+    log(user.user.token);
     try {
-      Uri uri = Uri.http(baseUrl, path, querryParam);
+      Uri uri = Uri.http(baseUrl, "/$path");
+      print("i am here");
       final response = await http.get(
         uri,
-        headers: _headers,
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+          'x-auth-token': user.user.token
+        },
       );
       _response = _returnResponse(response, uri, querryParam);
     } catch (e) {}

@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'features/common_widgets/bottom bar.dart';
+import 'features/home/screens/category_deals_screen.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -26,6 +27,12 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
       case AddProductScreen.routeName:
       return MaterialPageRoute(
         builder: (_) => const AddProductScreen(),
+        settings: routeSettings,
+      );
+      case CategoryDealsScreen.routeName:
+        var category=routeSettings.arguments as String;
+      return MaterialPageRoute(
+        builder: (_) => CategoryDealsScreen(category: category),
         settings: routeSettings,
       );
     default:
