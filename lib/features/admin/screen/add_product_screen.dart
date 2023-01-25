@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:amazon_clone/constants/utils.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
+import 'package:amazon_clone/features/common_widgets/circular_loader.dart';
 import 'package:amazon_clone/features/common_widgets/custom_text_field.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -152,6 +153,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     Expanded(
                         child: ElevatedButton(
                       onPressed: () {
+                        loadingWidget(context);
                         AdminServices().sellProduct(
                             context: context,
                             name: productNameController.text,

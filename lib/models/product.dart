@@ -3,10 +3,10 @@ import 'dart:convert';
 class Product {
   final String name;
   final String description;
-  final double quantity;
+  var quantity;
   final List<String> images;
   final String category;
-  final double price;
+  var price;
   final String? id;
   Map<String, dynamic> toMap() {
     return {
