@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
+import 'package:amazon_clone/helpers/ServiceHelpers/apiHelper.dart';
+import 'package:amazon_clone/helpers/ServiceHelpers/apiResponse.dart';
 import 'package:amazon_clone/models/user.dart';
 import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import '../constants/utils.dart';
 import '../features/common_widgets/bottom bar.dart';
 
 class AuthService {
+  ApiHelper helper = ApiHelper();
   //Sign up user
   void signUpUser(
       {required String email,
@@ -30,18 +33,9 @@ class AuthService {
           email: email,
           address: address,
           password: password);
-      http.Response response = await http.post(Uri.parse('$uri/api/signup'),
-          body: user.toJson(),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
-      httpErrorHandle(
-          response: response,
-          context: context,
-          onSuccess: () {
-            showSnackbar(
-                context, "Account created! Login with same credentials!");
-          });
+
+      ApiResponse response =
+          await helper.post('api/signup', context, querryParam: user.toJson());
     } catch (e) {
       showSnackbar(context, e.toString());
       rethrow;
