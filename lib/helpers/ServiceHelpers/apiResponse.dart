@@ -22,7 +22,7 @@ class ApiResponse {
   Map<String, dynamic> apiBaseResponseToJson(ApiResponse instance) {
     return <String, dynamic>{
       'message': instance.message,
-      "data": instance.data
+      'data': instance.data,
     };
   }
 }

@@ -1,5 +1,6 @@
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/service/home_service.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
@@ -14,9 +15,23 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    HomeService().getCategoryProduct(context, widget.category);
+    getData();
     super.initState();
   }
+
+  bool isLoading = true;
+  List<Product> productList = [];
+  getData() async {
+    setState(() {
+      isLoading = true;
+    });
+    productList =
+        await HomeService().getCategoryProduct(context, widget.category);
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,15 +61,36 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
           SizedBox(
             height: 170,
             child: GridView.builder(
-              scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.only(left: 15),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 1,
+                    crossAxisCount: 2,
                     childAspectRatio: 1.4,
                     mainAxisSpacing: 10),
-                itemCount: 10,
-                itemBuilder: (context,index ){
-                  return Text('hello');
+                itemCount: productList.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: 95,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            border:
+                                Border.all(color: Colors.black12, width: 0.5),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: Image.network(productList[index].images[0]),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        productList[index].name,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                      )
+                    ],
+                  );
                 }),
           )
         ],

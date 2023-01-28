@@ -19,8 +19,7 @@ class ApiHelper {
     Map<String, String>? _headers;
     log(user.user.token);
     try {
-      Uri uri = Uri.http(baseUrl, "/$path");
-      print("i am here");
+      Uri uri = Uri.http(baseUrl, "/$path", querryParam);
       final response = await http.get(
         uri,
         headers: {
@@ -29,7 +28,9 @@ class ApiHelper {
         },
       );
       _response = _returnResponse(response, uri, querryParam);
-    } catch (e) {}
+    } catch (e) {
+      rethrow;
+    }
     return _response;
   }
 

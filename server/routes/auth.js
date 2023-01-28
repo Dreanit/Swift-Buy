@@ -21,7 +21,7 @@ authRouter.post('/api/signup', async (req, res) => {
       address
     })
     user = await user.save();
-    res.json(user);
+    res.json({error:false,data: user});
   } catch (e) {
     res.status(500).json({ error: e.message });
   }
@@ -41,7 +41,7 @@ authRouter.post('/api/signin', async (req, res) => {
     }
 
    const token= jwt.sign({ id: user._id }, "passwordKey");
-    res.json({token,...user._doc})
+    res.json({error:false,data:{ token,...user._doc}})
     
   } catch (e) {
     res.status(500).json({ error: e.message });

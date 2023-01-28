@@ -40,7 +40,6 @@ class _AuthScreenState extends State<AuthScreen> {
             child: Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height - 60,
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,18 +141,15 @@ class _AuthScreenState extends State<AuthScreen> {
                       Expanded(
                         child: Card(
                           color: Colors.white,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30),
-                              bottomLeft: Radius.circular(150))),
-                          child: authWidget(),
+                          child: SizedBox(
+                            height: MediaQuery.of(context).size.height - 120,
+                            child: authWidget(),
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
-                Container(
-                  height: 60,
-                )
               ],
             ),
           ),
@@ -169,9 +165,6 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 50,
-            ),
             Hero(
               tag: 'logo',
               child: Image.asset(

@@ -11,9 +11,12 @@ class HomeService {
   Future<List<Product>> getCategoryProduct(
       BuildContext context, String category) async {
     List<Product> dataList = [];
-    ApiResponse response = await helper
-        .get('api/products', context: context, querryParam: {"category": category});
-    print(response.message);
+    ApiResponse response = await helper.get('api/products',
+        context: context, querryParam: {"category": category});
+    for (var json in response.data) {
+      Product value = Product.fromMap(json);
+      dataList.add(value);
+    }
     return dataList;
   }
 }
