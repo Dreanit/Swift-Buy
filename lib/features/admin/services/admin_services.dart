@@ -85,7 +85,6 @@ class AdminServices {
           context: context,
           onSuccess: () {
             for (var json in jsonDecode(response.body)["data"]) {
-              print(json);
               Product data = Product.fromMap(json);
               dataList.add(data);
             }

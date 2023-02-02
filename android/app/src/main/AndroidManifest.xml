@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="dreanit_develops.example.amazon_clone">
    <application
-        android:label="amazon_clone"
+        android:label="Swift Buy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

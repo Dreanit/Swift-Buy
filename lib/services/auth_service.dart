@@ -48,32 +48,18 @@ class AuthService {
       required String password,
       required BuildContext context}) async {
     try {
-      User user = User(
-          id: "",
-          name: "",
-          token: "",
-          type: "",
-          email: email,
-          address: "",
-          password: password);
-      http.Response response = await http.post(Uri.parse('$uri/api/signin'),
-          body: user.toJson(),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-          });
-      httpErrorHandle(
-          response: response,
-          context: context,
-          onSuccess: () async {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            Provider.of<UserProvider>(context, listen: false)
-                .setUser(response.body);
-            await prefs.setString(
-                "x-auth-token", jsonDecode(response.body)["token"]);
-            Navigator.pushNamedAndRemoveUntil(
-                context, BottomBar.routeName, (route) => false);
-          });
-      // print(response.body);
+      ApiResponse response = await helper.post("api/signin", context,
+          querryParam: {"email": email, "password": password});
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      Provider.of<UserProvider>(context, listen: false)
+          .setUser(jsonEncode(response.data));
+      await prefs.setString("x-auth-token", response.data["token"]);
+      if (!response.error) {
+        Navigator.pushNamedAndRemoveUntil(
+            context, BottomBar.routeName, (route) => false);
+      } else {
+        showSnackbar(context, "Oops Something went wrong!!");
+      } // print(response.body);
     } catch (e) {
       showSnackbar(context, e.toString());
       rethrow;

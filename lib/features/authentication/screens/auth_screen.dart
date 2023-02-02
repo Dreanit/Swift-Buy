@@ -142,7 +142,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         child: Card(
                           color: Colors.white,
                           child: SizedBox(
-                            height: MediaQuery.of(context).size.height - 120,
+                            height: MediaQuery.of(context).size.height - 70,
                             child: authWidget(),
                           ),
                         ),
