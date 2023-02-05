@@ -27,6 +27,7 @@ dependencies:
   dotted_border: ^2.0.0+3
   file_picker:
   cloudinary_public:
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   flutter_test:
