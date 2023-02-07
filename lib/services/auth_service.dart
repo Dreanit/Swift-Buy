@@ -61,7 +61,6 @@ class AuthService {
         showSnackbar(context, "Oops Something went wrong!!");
       } // print(response.body);
     } catch (e) {
-      showSnackbar(context, e.toString());
       rethrow;
     }
   }
