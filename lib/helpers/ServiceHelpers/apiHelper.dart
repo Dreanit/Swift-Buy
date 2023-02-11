@@ -77,6 +77,7 @@ class ApiHelper {
         HttpHeaders.contentTypeHeader: 'application/json',
         'x-auth-token': user.user.token
       });
+      print(response.body);
       _response = await _returnResponse(response, uri, querryParam);
     } catch (e) {
       rethrow;

@@ -51,16 +51,17 @@ class AuthService {
       ApiResponse response = await helper.post("api/signin", context,
           querryParam: {"email": email, "password": password});
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      Provider.of<UserProvider>(context, listen: false)
-          .setUser(jsonEncode(response.data));
-      await prefs.setString("x-auth-token", response.data["token"]);
+      if(response.error){}
       if (!response.error) {
+        Provider.of<UserProvider>(context, listen: false).setUser(jsonEncode(response.data));
+        await prefs.setString("x-auth-token", response.data["token"]);
         Navigator.pushNamedAndRemoveUntil(
             context, BottomBar.routeName, (route) => false);
       } else {
-        showSnackbar(context, "Oops Something went wrong!!");
+        showSnackbar(context, response.message);
       } // print(response.body);
     } catch (e) {
+      showSnackbar(context, e.toString());
       rethrow;
     }
   }
