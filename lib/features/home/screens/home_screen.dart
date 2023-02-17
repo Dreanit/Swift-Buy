@@ -1,3 +1,4 @@
+import 'package:amazon_clone/constants/common_widgets.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/widgets/address_bar.dart';
 import 'package:amazon_clone/features/home/widgets/carousel_image.dart';
@@ -79,11 +80,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ),),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: Icon(Icons.mic,color: Colors.white,size: 25,),
+              GestureDetector(
+                onTap: (){
+                },
+                child: Container(
+                  color: Colors.transparent,
+                  height: 42,
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: Icon(Icons.mic,color: Colors.white,size: 25,),
+                ),
               )
             ],
           ),

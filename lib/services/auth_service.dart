@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
+import 'package:amazon_clone/constants/common_widgets.dart';
 import 'package:amazon_clone/constants/error_handling.dart';
 import 'package:amazon_clone/constants/global_variables.dart';
 import 'package:amazon_clone/features/home/screens/home_screen.dart';
@@ -18,7 +20,7 @@ import '../features/common_widgets/bottom bar.dart';
 class AuthService {
   ApiHelper helper = ApiHelper();
   //Sign up user
-  void signUpUser(
+  Future<bool> signUpUser(
       {required String email,
       required String name,
       required String password,
@@ -36,6 +38,7 @@ class AuthService {
 
       ApiResponse response =
           await helper.post('api/signup', context, querryParam: user.toJson());
+      return !response.error;
     } catch (e) {
       showSnackbar(context, e.toString());
       rethrow;
@@ -51,18 +54,32 @@ class AuthService {
       ApiResponse response = await helper.post("api/signin", context,
           querryParam: {"email": email, "password": password});
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(response.error){}
       if (!response.error) {
-        Provider.of<UserProvider>(context, listen: false).setUser(jsonEncode(response.data));
+        Provider.of<UserProvider>(context, listen: false)
+            .setUser(jsonEncode(response.data));
         await prefs.setString("x-auth-token", response.data["token"]);
         Navigator.pushNamedAndRemoveUntil(
             context, BottomBar.routeName, (route) => false);
+        AppCommonWidgets.showSnackBar(
+            context: context,
+            titleText: "Great!",
+            message: "You have successfully Logged In",
+            contentType: AppCommonWidgets.successContentType);
       } else {
-        showSnackbar(context, response.message);
+        AppCommonWidgets.showSnackBar(
+            context: context,
+            titleText: "Oh Snap!",
+            message: response.message,
+            contentType: AppCommonWidgets.failureContentType);
       } // print(response.body);
     } catch (e) {
-      showSnackbar(context, e.toString());
-      rethrow;
+      log(e.toString());
+      AppCommonWidgets.showSnackBar(
+          context: context,
+          titleText: "Oh Snap!",
+          message: e.toString(),
+          contentType: AppCommonWidgets.failureContentType);
+      // rethrow;
     }
   }
 

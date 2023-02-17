@@ -21,13 +21,14 @@ dependencies:
   http:
   shared_preferences:
   provider:
-  badges:
+  badges: ^3.0.2
   carousel_slider:
   flutter_speed_dial: ^6.2.0
   dotted_border: ^2.0.0+3
   file_picker:
   cloudinary_public:
   flutter_rating_bar: ^4.0.1
+  awesome_snackbar_content: ^0.1.0
 
 dev_dependencies:
   flutter_test:
