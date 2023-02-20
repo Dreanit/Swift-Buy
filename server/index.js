@@ -1,24 +1,34 @@
-//import 'package
-const express=require('express');
-const mongoose =require("mongoose");
-//import other file;
-const authRouter=require('./routes/auth');
-const adminRouter=require('./routes/admin');
-const productRouter=require('./routes/product');
-//init
-const PORT =8080;
-const app=express();
+// IMPORTS FROM PACKAGES
+const express = require("express");
+const mongoose = require("mongoose");
+const adminRouter = require("./routes/admin");
+// IMPORTS FROM OTHER FILES
+const authRouter = require("./routes/auth");
+const productRouter = require("./routes/product");
+const userRouter = require("./routes/user");
+
+// INIT
+const PORT = process.env.PORT || 8080;
+const app = express();
 const DB="mongodb+srv://dreanit:Sahil3005@cluster0.6be2l2u.mongodb.net/?retryWrites=true&w=majority";
-//middleware
-//CLIENT -> SERVER-> CLIENT
+
+// middleware
 app.use(express.json());
 app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);
-//connections
-mongoose.connect(DB).then(()=>{
-    console.log("connection successful");
-}).catch((e)=>{console.log(e);});
+app.use(userRouter);
 
-app.listen(PORT,"0.0.0.0",()=>{
-console.log(`connected at port ${PORT}`);});
+// Connections
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("Connection Successful");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`connected at port ${PORT}`);
+});

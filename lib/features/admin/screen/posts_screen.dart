@@ -1,9 +1,11 @@
+import 'package:amazon_clone/features/account/widgets/single_product.dart';
+import 'package:amazon_clone/features/admin/screen/add_product_screen.dart';
 import 'package:amazon_clone/features/admin/services/admin_services.dart';
-import 'package:amazon_clone/features/common_widgets/circular_loader.dart';
+import 'package:amazon_clone/features/common_widgets/loader.dart';
 import 'package:amazon_clone/models/product.dart';
 import 'package:flutter/material.dart';
 
-import '../../account/widgets/single_product.dart';
+import 'orders_screen.dart';
 
 class PostsScreen extends StatefulWidget {
   const PostsScreen({Key? key}) : super(key: key);
@@ -13,39 +15,50 @@ class PostsScreen extends StatefulWidget {
 }
 
 class _PostsScreenState extends State<PostsScreen> {
+  List<Product>? products;
+  final AdminServices adminServices = AdminServices();
+
   @override
   void initState() {
-    getData();
     super.initState();
+    fetchAllProducts();
   }
 
-  AdminServices _adminServices = AdminServices();
-  List<Product> productList = [];
-  getData() async {
-    productList = await _adminServices.getProducts(context);
-    setState(() {
-      productList;
-    });
+  fetchAllProducts() async {
+    products = await adminServices.fetchAllProducts(context);
+    setState(() {});
   }
 
-  deleteProduct(String id, BuildContext context) async {
-    _adminServices.deleteProduct(context, id);
+  void deleteProduct(Product product, int index) {
+    adminServices.deleteProduct(
+      context: context,
+      product: product,
+      onSuccess: () {
+        products!.removeAt(index);
+        setState(() {});
+      },
+    );
+  }
+
+  void navigateToAddProduct() {
+    Navigator.pushNamed(context, AddProductScreen.routeName);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return products == null
+        ? const Loader()
+        : Scaffold(
       body: GridView.builder(
-        padding: EdgeInsets.only(top: 10, bottom: 80, left: 10, right: 10),
-        itemCount: productList.length,
-        gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: products!.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2),
         itemBuilder: (context, index) {
-          final productData = productList[index];
+          final productData = products![index];
           return Column(
             children: [
               SizedBox(
-                height: 100,
+                height: 130,
                 child: SingleProduct(
                   image: productData.images[0],
                 ),
@@ -61,11 +74,7 @@ class _PostsScreenState extends State<PostsScreen> {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      loadingWidget(context);
-                      deleteProduct(productList[index].id.toString(), context);
-                      setState(() {});
-                    },
+                    onPressed: () => deleteProduct(productData, index),
                     icon: const Icon(
                       Icons.delete_outline,
                     ),
@@ -76,6 +85,13 @@ class _PostsScreenState extends State<PostsScreen> {
           );
         },
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: const Icon(Icons.add),
+      //   onPressed: navigateToAddProduct,
+      //   tooltip: 'Add a Product',
+      // ),
+      // floatingActionButtonLocation:
+      // FloatingActionButtonLocation.centerFloat,
     );
   }
 }

@@ -1,4 +1,6 @@
 import 'package:amazon_clone/features/admin/screen/add_product_screen.dart';
+import 'package:amazon_clone/features/admin/screen/analtyics_screen.dart';
+import 'package:amazon_clone/features/admin/screen/orders_screen.dart';
 import 'package:amazon_clone/features/admin/screen/posts_screen.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +21,8 @@ class _AdminScreenState extends State<AdminScreen> {
 
   List<Widget> pages = [
     PostsScreen(),
-    const Center(
-      child: Text("Analytics Page"),
-    ),
-    const Center(
-      child: Text("Cart Page"),
-    ),
+    AnalyticsScreen(),
+    OrdersScreen(),
   ];
   void updatePage(int page) {
     setState(() {

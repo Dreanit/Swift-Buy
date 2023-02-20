@@ -1,15 +1,14 @@
+import 'package:amazon_clone/features/common_widgets/stars.dart';
+import 'package:amazon_clone/features/product_details/service/product_details_service.dart';
+import 'package:amazon_clone/providers/user_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
+import 'package:amazon_clone/constants/global_variables.dart';
+import 'package:amazon_clone/features/search/screens/search_screen.dart';
+import 'package:amazon_clone/models/product.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
-
-import '../../../constants/global_variables.dart';
-import '../../../models/product.dart';
-import '../../../providers/user_provider.dart';
-import '../../common_widgets/stars.dart';
-import '../../search/screens/search_screen.dart';
-import '../service/product_details_service.dart';
 
 class ProductDetailScreen extends StatefulWidget {
   static const String routeName = '/product-details';
@@ -33,17 +32,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     super.initState();
     double totalRating = 0;
-    // for (int i = 0; i < widget.product.rating!.length; i++) {
-    //   totalRating += widget.product.rating![i].rating;
-    //   if (widget.product.rating![i].userId ==
-    //       Provider.of<UserProvider>(context, listen: false).user.id) {
-    //     myRating = widget.product.rating![i].rating;
-    //   }
-    // }
-    //
-    // if (totalRating != 0) {
-    //   avgRating = totalRating / widget.product.rating!.length;
-    // }
+    for (int i = 0; i <( widget.product.rating?.length??0); i++) {
+      totalRating += widget.product.rating![i].rating;
+      if (widget.product.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = widget.product.rating![i].rating;
+      }
+    }
+
+    if (totalRating != 0) {
+      avgRating = totalRating / widget.product.rating!.length;
+    }
   }
 
   void navigateToSearchScreen(String query) {
@@ -74,7 +73,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               Expanded(
                 child: Container(
                   height: 42,
-                    child: Material(
+                  margin: const EdgeInsets.only(left: 15),
+                  child: Material(
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
@@ -111,7 +111,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             width: 1,
                           ),
                         ),
-                        hintText: 'Search Swift Buy',
+                        hintText: 'Search Amazon.in',
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 17,
@@ -213,7 +213,22 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
               color: Colors.black12,
               height: 5,
             ),
-
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: MaterialButton(
+                child: Text('Buy Now'),
+                onPressed: (){},
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.all(10),
+              child: MaterialButton(
+                child: Text('Add to Cart'),
+                onPressed: addToCart,
+                color: const Color.fromRGBO(254, 216, 19, 1),
+              ),
+            ),
             const SizedBox(height: 10),
             Container(
               color: Colors.black12,

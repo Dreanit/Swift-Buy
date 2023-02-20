@@ -29,6 +29,8 @@ dependencies:
   cloudinary_public:
   flutter_rating_bar: ^4.0.1
   awesome_snackbar_content: ^0.1.0
+  pay: ^1.0.8
+  charts_flutter: ^0.12.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +50,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/applepay.json
+    - assets/gpay.json
     - assets/images/
 
 
