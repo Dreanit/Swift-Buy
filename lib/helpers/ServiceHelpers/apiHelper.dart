@@ -19,7 +19,7 @@ class ApiHelper {
     Map<String, String>? _headers;
     log(user.user.token);
     try {
-      Uri uri = Uri.http(baseUrl, "/$path", querryParam);
+      Uri uri = Uri.https(baseUrl, "/$path", querryParam);
       final response = await http.get(
         uri,
         headers: {
@@ -71,7 +71,7 @@ class ApiHelper {
       {dynamic querryParam}) async {
     final user = Provider.of<UserProvider>(context, listen: false);
     try {
-      Uri uri = Uri.http(baseUrl, "/$path");
+      Uri uri = Uri.https(baseUrl, "/$path");
       var response =
           await http.post(uri, body: jsonEncode(querryParam), headers: {
         HttpHeaders.contentTypeHeader: 'application/json',
