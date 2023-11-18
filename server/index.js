@@ -20,5 +20,11 @@ mongoose.connect(DB).then(()=>{
     console.log("connection successful");
 }).catch((e)=>{console.log(e);});
 
+app.use((req, res, next) => {
+  console.log(`[${new Date().toLocaleString()}] ${req.method} ${req.url}`);
+  next();
+});
+
+
 app.listen(PORT,"0.0.0.0",()=>{
 console.log(`connected at port ${PORT}`);});
