@@ -43,11 +43,11 @@ class User {
       address: map['address'] ?? '',
       type: map['type'] ?? '',
       token: map['token'] ?? '',
-      cart: List<Map<String, dynamic>>.from(
+      cart:(map.containsKey("cart"))? List<Map<String, dynamic>>.from(
         map['cart']?.map(
               (x) => Map<String, dynamic>.from(x),
         ),
-      ),
+      ):[],
     );
   }
 
